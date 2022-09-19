@@ -1,3 +1,9 @@
+# Automating Explainability in Healthcare (Samsung-Sponsored Capstone Project)
+
+## Data Lineage
+
+# Appendix (Capstone Project Motivation)
+
 ![Large-Scale Canine Mammary Carcinoma Data Set for Mitotic Figure Assessment on Whole Slide Images](title_CMC.png)
 
 ## MITOS_WSI_CMC data set
