@@ -2,6 +2,8 @@
 
 ## Data Lineage
 
+![Data Lineage for Capstone Project](data_lineage.png)
+
 # Appendix (Capstone Project Motivation)
 
 ![Large-Scale Canine Mammary Carcinoma Data Set for Mitotic Figure Assessment on Whole Slide Images](title_CMC.png)
