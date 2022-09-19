@@ -3,3 +3,7 @@ WSI/
 
 # mac
 .DS_Store
+
+# checkpoints
+.ipynb_checkpoints
+*-checkpoint.ipynb
