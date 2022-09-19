@@ -6,3 +6,4 @@ WSI/
 
 # checkpoints
 .ipynb_checkpoints
+*-checkpoint.ipynb
