@@ -16,7 +16,7 @@ import pickle
 import numpy as np
 from sklearn.neighbors import KDTree
 
-from SlideRunner_dataAccess.database import Database
+from SlideRunner.dataAccess.database import Database
 from lib.nms_WSI import nms
 
 def _F1_core(centers_DB : np.ndarray, boxes : np.ndarray, score : np.ndarray, det_thres:float):
