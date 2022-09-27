@@ -4,9 +4,17 @@ WSI/
 # mac
 .DS_Store
 
-# checkpoints
+# pycache checkpoints
+__pycache__
 .ipynb_checkpoints
 *-checkpoint.ipynb
 
+# tmp pth files
+*tmp.pth
+
 # photos
 sample.jpg
+
+# assignment files
+# week 6
+assignments/week-6-ML-baseline/lib/

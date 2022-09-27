@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 from sklearn.neighbors import KDTree
 import openslide 
-from SlideRunner_dataAccess.database import Database
+from SlideRunner.dataAccess.database import Database
 from lib.nms_WSI import nms
 import cv2
 
