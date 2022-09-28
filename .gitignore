@@ -18,3 +18,7 @@ sample.jpg
 # assignment files
 # week 6
 assignments/week-6-ML-baseline/lib/
+
+# week 7
+assignments/week-7-initial-github/lib
+assignments/week-7-initial-github/data_loader.py
