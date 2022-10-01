@@ -1,7 +1,5 @@
 from fastai.vision import *
-from fastai import *
 from tqdm import tqdm
-import cv2
 import openslide
 import numpy as np
 import os

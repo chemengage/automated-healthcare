@@ -1,4 +1,3 @@
-from fastai import *
 from fastai.vision import *
 from torch.autograd import Variable
 

@@ -1,11 +1,5 @@
-import bz2
-import pickle
 import numpy as np
-from sklearn.neighbors import KDTree
-import openslide 
-from SlideRunner.dataAccess.database import Database
-from lib.nms_WSI import nms
-import cv2
+
 
 def _F1_core_enh(centers_DB : np.ndarray, boxes : np.ndarray, score : np.ndarray, det_thres:float):
 
@@ -205,7 +199,6 @@ import numpy as np
 from sklearn.neighbors import KDTree
 import openslide 
 from SlideRunner.dataAccess.database import Database
-from lib.nms_WSI import nms
 import cv2
 
 def _F1_core_enh(centers_DB : np.ndarray, boxes : np.ndarray, score : np.ndarray, det_thres:float):

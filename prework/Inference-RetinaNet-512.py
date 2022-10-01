@@ -40,7 +40,7 @@ if len(sys.argv)>1:
     fname = sys.argv[1]
 
 size=512
-path = Path('./')
+path = Path('../')
 
 database = Database()
 database.open(str(sys.argv[2]))#Slides_Mitosis_final_checked_cleaned.sqlite'))

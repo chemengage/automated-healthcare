@@ -1,5 +1,3 @@
-from fastai.callbacks import *
-
 from lib.object_detection_helper import *
 
 from lib.BoundingBox import BoundingBox

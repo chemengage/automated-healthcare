@@ -18,7 +18,7 @@
 """
 import sys
 
-sys.path.append('../')
+sys.path.append('../../')
 from lib.processSecondStageClassification import *
 import pickle
 import sys,os
