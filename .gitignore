@@ -1,8 +1,9 @@
 # any data
+.idea
+.ipynb_checkpoints
 prework/WSI/
 data/
 *.svs
-.idea
 
 # mac
 .DS_Store
@@ -10,7 +11,6 @@ data/
 # pycache checkpoints
 __pycache__
 *.ipynb_checkpoints
-.ipynb_checkpoints/
 *-checkpoint.ipynb
 
 # tmp pth files
