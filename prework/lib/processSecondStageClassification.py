@@ -26,7 +26,7 @@ def processSecondStageClassifier(results, basepath='./WSI/', intermediate='res_o
 
 
     print('Loading',modelpath)
-    learn = load_learner(path='./', file=modelpath)
+    learn = load_learner(path='/', file=modelpath)
 
     print('Performing NMS ...')
     results = nms(results, nms_threshold)
