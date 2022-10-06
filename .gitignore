@@ -19,9 +19,13 @@ __pycache__
 # photos
 preword/sample.jpg
 
+# src/data/Data
+prework/data/Data
+
 # assignment files
 # week 6
 assignments/week-6-ML-baseline/lib/
 
 # week 7
 assignments/week-7-initial-github/Data_CMC*
+assignments/week-7-initial-github/models
