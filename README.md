@@ -42,13 +42,13 @@ The following chart shows how we envisioned data to propagate in our machine lea
 ![Data Lineage for Capstone Project](data_lineage.png)
 
 ## Methodology
-### Aggressive Mitotic Detection on Whole Slide Images
+### 1. Aggressive Mitotic Detection on Whole Slide Images
 
-### Mitotic Patch Classifier
+### 2. Mitotic Patch Classifier
 
-### Heatmap Visualizations to Explain Classifier Predictions
+### 3. Heatmap Visualizations to Explain Classifier Predictions
 
-### Image-Text Dual Encoder to Automate Textual Explainability
+### 4. Image-Text Dual Encoder to Automate Textual Explainability
 
 ## Contributors
 - Shelly Jain, *VP, JPMorgan Chase*
