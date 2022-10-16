@@ -45,18 +45,18 @@ The following chart shows how we envisioned data to propagate in our machine lea
 ### 1. Aggressive Mitotic Detection on Whole Slide Images
 
 ### 2. Mitotic Patch Classifier
-#### Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)
 Convolution neural network model serves as the base model to perform predictions.
+- Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)
 
 ### 3. Heatmap Visualizations to Explain Classifier Predictions
-#### Goal: Mitotic Detected Image (Input) -> Mitotic Image Heatmap (Output)
 CAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
+- Goal: Mitotic Detected Image (Input) -> Mitotic Image Heatmap (Output)
 - Convolutional neural network model is used as main classifier for prediction
 - CAM layer is included in CNN architecture before the output layer to help visualize image embedding space that explains predictions
 
 ### 4. Image-Text Dual Encoder to Automate Textual Explainability
-#### Goal: Mitotic Detected Image (Input) -> Natural Language Explanation (Output) 
 A dual encoder neural network was built using two main components, a vision encoder and a text encoder. 
+- Goal: Mitotic Detected Image (Input) -> Natural Language Explanation (Output) 
 - Image embeddings are created through the vision encoder via a pretrained Xception (ImageNet) neural network architecture.
 - Text embeddings are created through the text encoder via a pretrained BERT (English Uncased) neural network architecture.
 - Dual encoder learns image-to-text embeddings by minimizing the average loss over the image and text loss functions. 
