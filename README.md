@@ -36,10 +36,14 @@ code to train, test and validate models, and all appropriate code to create visu
 - This repo has a `.gitignore` file to remove any local work/data not needed for the repo.
 - This repo has a `requirements.txt` file that matches exactly what was needed to run all code in this repo successfully.
 
+----
+
 ## Data Lineage
 The following chart shows how we envisioned data to propagate in our machine learning pipeline.
 
 ![Data Lineage for Capstone Project](data_lineage.png)
+
+----
 
 ## Methodology
 ### 1. Aggressive Mitotic Detection on Whole Slide Images
@@ -60,6 +64,12 @@ A dual encoder neural network was built using two main components, a vision enco
 - Image embeddings are created through the vision encoder via a pretrained Xception (ImageNet) neural network architecture.
 - Text embeddings are created through the text encoder via a pretrained BERT (English Uncased) neural network architecture.
 - Dual encoder learns image-to-text embeddings by minimizing the average loss over the image and text loss functions. 
+
+----
+
+## Presentation Link
+
+[Demo-Day Final Presentation](https://docs.google.com/presentation/d/1qVjWvsBBks1P_PwFxf3sq1w35kqOuX_a/edit?usp=sharing&ouid=105719478312012717747&rtpof=true&sd=true)
 
 ## Contributors
 - Shelly Jain, *VP, JPMorgan Chase*
