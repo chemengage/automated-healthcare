@@ -1,7 +1,5 @@
 # Automating Explainability in Healthcare
 
-----
-
 ## Project Description
 ### Motivation
 The purpose of this project is to use AI and machine learning to flag cancerous cells on whole slide images of tissues. 
