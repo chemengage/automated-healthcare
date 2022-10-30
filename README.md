@@ -1,5 +1,7 @@
 # Automating Explainability in Healthcare
 
+----
+
 ## Project Description
 ### Motivation
 The purpose of this project is to use AI and machine learning to flag cancerous cells on whole slide images of tissues. 
@@ -48,7 +50,6 @@ The following chart shows how we envisioned data to propagate in our machine lea
 ## ML Pipeline Diagram
 
 ![ML Pipeline Diagram](ml_pipeline.png)
-----
 
 ## Methodology
 ### 1. Mitotic Object Detection on Whole Slide Images
@@ -81,6 +82,8 @@ This is currently a work in progress.
 ## Presentation Link
 
 [Demo-Day Final Presentation](https://docs.google.com/presentation/d/1qVjWvsBBks1P_PwFxf3sq1w35kqOuX_a/edit?usp=sharing&ouid=105719478312012717747&rtpof=true&sd=true)
+
+----
 
 ## Contributors
 - Shelly Jain, *VP, JPMorgan Chase*
