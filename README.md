@@ -45,20 +45,25 @@ The following chart shows how we envisioned data to propagate in our machine lea
 
 ----
 
-## Methodology
-### 1. Aggressive Mitotic Detection on Whole Slide Images
+## ML Pipeline Diagram
 
-### 2. Mitotic Patch Classifier
+![ML Pipeline Diagram](ml_pipeline.png)
+----
+
+## Methodology
+### 1. Mitotic Object Detection on Whole Slide Images
+
+### 2. Cell Patch Classifier
 Convolution neural network model serves as the base model to perform predictions.
 - Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)
 
-### 3. Heatmap Visualizations to Explain Classifier Predictions
-CAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
+### 3. Visual Explainability using GradCAM
+GradCAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
 - Goal: Mitotic Detected Image (Input) -> Mitotic Image Heatmap (Output)
 - Convolutional neural network model is used as main classifier for prediction
 - CAM layer is included in CNN architecture before the output layer to help visualize image embedding space that explains predictions
 
-### 4. Image-Text Dual Encoder to Automate Textual Explainability
+### 4. Textual Explainability using Dual Encoder
 A dual encoder neural network was built using two main components, a vision encoder and a text encoder. 
 - Goal: Mitotic Detected Image (Input) -> Natural Language Explanation (Output) 
 - Image embeddings are created through the vision encoder via a pretrained Xception (ImageNet) neural network architecture.
