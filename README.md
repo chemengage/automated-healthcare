@@ -72,6 +72,12 @@ A dual encoder neural network was built using two main components, a vision enco
 
 ----
 
+## Deployment Stack
+
+This is currently a work in progress.
+
+----
+
 ## Presentation Link
 
 [Demo-Day Final Presentation](https://docs.google.com/presentation/d/1qVjWvsBBks1P_PwFxf3sq1w35kqOuX_a/edit?usp=sharing&ouid=105719478312012717747&rtpof=true&sd=true)
