@@ -29,3 +29,9 @@ assignments/week-6-ML-baseline/lib/
 # week 7
 assignments/week-7-initial-github/Data_CMC*
 assignments/week-7-initial-github/models
+
+# model files
+*.pth
+
+#notebooks/img
+notebooks/img
