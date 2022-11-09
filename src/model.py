@@ -360,11 +360,11 @@ class detection:
         return resized_img
 
     def load_model_ve(self):
-        self.vision_encoder = keras.models.load_model(self.path_model_ve())
+        self.vision_encoder = keras.models.load_model(self.path_model_ve)
         return self.vision_encoder
 
     def load_model_te(self):
-        self.text_encoder = keras.models.load_model(self.path_model_te())
+        self.text_encoder = keras.models.load_model(self.path_model_te)
         return self.text_encoder
 
     def get_img_embedding(self, input_image):
