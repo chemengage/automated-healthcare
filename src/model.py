@@ -354,9 +354,9 @@ class detection:
         superimposed_img = cv2.cvtColor(superimposed_img, cv2.COLOR_BGR2RGB)
         return superimposed_img
 
-    def img_resize(self, input_image):
-        img_array = tf.image.decode_jpeg(tf.io.read_file(input_image), channels=3)
-        resized_img = tf.image.resize(img_array, (299, 299))
+    def img_resize(self, img):
+        # takes in 250x250px from object detector
+        resized_img = tf.image.resize(img, (299, 299))
         return resized_img
 
     def load_model_ve(self):
