@@ -348,7 +348,13 @@ class detection:
 
         return heatmap
 
-    def heatmap(self, input_image, predictions, heatmaps, coordinates):
+    def heatmap(self, input_image, result):
+        # returns original input image with heatmaps overlayed
+        # unpack result dictionary
+        predictions = result['predictions']
+        coordinates = result['coordinates']
+        heatmaps = result['heatmaps']
+
         mask = np.zeros(input_image.shape)
         for idx, prediction in enumerate(predictions):
             if prediction == 0:
