@@ -244,6 +244,9 @@ class detection:
         # might load model in main script
         #model_cp = load_model_cp() # load fine-tuned model
         self.model_cp.eval()
+        
+        # prepare text embeddings
+        self.text_embeddings = self.get_text_embedding()
 
         n_batches, queue_cells = self.cell_patches(input_image) # get overlapping patch coordinates
 
@@ -407,7 +410,7 @@ class detection:
 
     def text_explanation(self, img, k=1, normalize=True):
         get_image_embedding = self.get_img_embedding(img)
-        get_text_embedding = self.get_text_embedding()
+        get_text_embedding = self.text_embeddings
         # Normalize text and image embedding
         if normalize:
             image_embedding = tf.math.l2_normalize(get_image_embedding)
