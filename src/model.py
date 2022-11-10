@@ -355,8 +355,12 @@ class detection:
         return superimposed_img
 
     def img_resize(self, img):
-        # takes in 250x250px from object detector
-        resized_img = tf.image.resize(img, (299, 299))
+        # takes in 250x250px PyTorch tensor and converts to Tensorflow tensor
+        img_np = img*255
+        img_np = img_np.numpy()
+        img_np = img_np.transpose(1, 2, 0)
+        img_tf = tf.convert_to_tensor(img_np)
+        resized_img = tf.image.resize(img_tf, (299, 299))
         return resized_img
 
     def load_model_ve(self):
