@@ -240,6 +240,7 @@ class detection:
         return np.array(image_boxes)
 
     def patch_classifier(self, input_image):
+        # where all the inference happens
         # might load model in main script
         #model_cp = load_model_cp() # load fine-tuned model
         self.model_cp.eval()
@@ -248,6 +249,7 @@ class detection:
 
         predictions = []
         heatmaps = []
+        explanations = []
         coordinates = {'x': [],
                         'y': []}
 
@@ -257,6 +259,8 @@ class detection:
             # record coordinates of lu on original/input image
             coordinates['x'] = coordinates['x'] + batch_x.tolist()
             coordinates['y'] = coordinates['y'] + batch_y.tolist()
+            # make copy of torch_batch before transforms for explanations
+            explain_batch = torch_batch
             # perform transforms
             torch_batch = transforms.Resize(224)(torch_batch)
             torch_batch = transforms.Normalize(self.mean, self.std)(torch_batch)
@@ -271,7 +275,18 @@ class detection:
                 heatmap = self.gradcam(img)
                 heatmaps.append(heatmap)
             
-        return predictions, heatmaps, coordinates
+            # get explanations
+            for idx, img in enumerate(explain_batch):
+                explanation = self.text_explanation(img, k=1, normalize=True)
+                explanations.append(explanation)
+        
+        # return lists as a dictionary
+        result = {'predictions': predictions,
+                    'heatmaps': heatmaps,
+                        'explanations': explanations,
+                            'coordinates': coordinates}
+            
+        return result
 
     def gradcam(self, img):
         self.model_cp.eval()
