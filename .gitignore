@@ -32,6 +32,7 @@ assignments/week-7-initial-github/models
 
 # model files
 *.pth
+models
 
 #notebooks/img
 notebooks/img

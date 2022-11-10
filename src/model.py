@@ -240,6 +240,7 @@ class detection:
         return np.array(image_boxes)
 
     def patch_classifier(self, input_image):
+        # where all the inference happens
         # might load model in main script
         #model_cp = load_model_cp() # load fine-tuned model
         self.model_cp.eval()
@@ -248,6 +249,7 @@ class detection:
 
         predictions = []
         heatmaps = []
+        explanations = []
         coordinates = {'x': [],
                         'y': []}
 
@@ -257,6 +259,8 @@ class detection:
             # record coordinates of lu on original/input image
             coordinates['x'] = coordinates['x'] + batch_x.tolist()
             coordinates['y'] = coordinates['y'] + batch_y.tolist()
+            # make copy of torch_batch before transforms for explanations
+            explain_batch = torch_batch
             # perform transforms
             torch_batch = transforms.Resize(224)(torch_batch)
             torch_batch = transforms.Normalize(self.mean, self.std)(torch_batch)
@@ -271,7 +275,18 @@ class detection:
                 heatmap = self.gradcam(img)
                 heatmaps.append(heatmap)
             
-        return predictions, heatmaps, coordinates
+            # get explanations
+            for idx, img in enumerate(explain_batch):
+                explanation = self.text_explanation(img, k=1, normalize=True)
+                explanations.append(explanation)
+        
+        # return lists as a dictionary
+        result = {'predictions': predictions,
+                    'heatmaps': heatmaps,
+                        'explanations': explanations,
+                            'coordinates': coordinates}
+            
+        return result
 
     def gradcam(self, img):
         self.model_cp.eval()
@@ -333,7 +348,13 @@ class detection:
 
         return heatmap
 
-    def heatmap(self, input_image, predictions, heatmaps, coordinates):
+    def heatmap(self, input_image, result):
+        # returns original input image with heatmaps overlayed
+        # unpack result dictionary
+        predictions = result['predictions']
+        coordinates = result['coordinates']
+        heatmaps = result['heatmaps']
+
         mask = np.zeros(input_image.shape)
         for idx, prediction in enumerate(predictions):
             if prediction == 0:
@@ -354,22 +375,26 @@ class detection:
         superimposed_img = cv2.cvtColor(superimposed_img, cv2.COLOR_BGR2RGB)
         return superimposed_img
 
-    def img_resize(self, input_image):
-        img_array = tf.image.decode_jpeg(tf.io.read_file(input_image), channels=3)
-        resized_img = tf.image.resize(img_array, (299, 299))
+    def img_resize(self, img):
+        # takes in 250x250px PyTorch tensor and converts to Tensorflow tensor
+        img_np = img*255
+        img_np = img_np.numpy()
+        img_np = img_np.transpose(1, 2, 0)
+        img_tf = tf.convert_to_tensor(img_np)
+        resized_img = tf.image.resize(img_tf, (299, 299))
         return resized_img
 
     def load_model_ve(self):
-        self.vision_encoder = keras.models.load_model(self.path_model_ve())
+        self.vision_encoder = keras.models.load_model(self.path_model_ve)
         return self.vision_encoder
 
     def load_model_te(self):
-        self.text_encoder = keras.models.load_model(self.path_model_te())
+        self.text_encoder = keras.models.load_model(self.path_model_te)
         return self.text_encoder
 
-    def get_img_embedding(self, input_image):
+    def get_img_embedding(self, img):
         embedding = self.vision_encoder.predict(
-            tf.expand_dims(self.img_resize(input_image), axis=0),
+            tf.expand_dims(self.img_resize(img), axis=0),
             verbose=0,
         )
         return embedding
@@ -380,8 +405,8 @@ class detection:
         ]
         return text_embeddings
 
-    def text_explanation(self, input_image, k=1, normalize=True):
-        get_image_embedding = self.get_img_embedding(input_image)
+    def text_explanation(self, img, k=1, normalize=True):
+        get_image_embedding = self.get_img_embedding(img)
         get_text_embedding = self.get_text_embedding()
         # Normalize text and image embedding
         if normalize:
