@@ -260,7 +260,7 @@ class detection:
             coordinates['x'] = coordinates['x'] + batch_x.tolist()
             coordinates['y'] = coordinates['y'] + batch_y.tolist()
             # make copy of torch_batch before transforms for explanations
-            explain_batch = torch_batch
+            explain_batch = torch_batch.detach().cpu()
             # perform transforms
             torch_batch = transforms.Resize(224)(torch_batch)
             torch_batch = transforms.Normalize(self.mean, self.std)(torch_batch)
