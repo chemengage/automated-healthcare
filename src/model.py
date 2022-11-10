@@ -367,9 +367,9 @@ class detection:
         self.text_encoder = keras.models.load_model(self.path_model_te)
         return self.text_encoder
 
-    def get_img_embedding(self, input_image):
+    def get_img_embedding(self, img):
         embedding = self.vision_encoder.predict(
-            tf.expand_dims(self.img_resize(input_image), axis=0),
+            tf.expand_dims(self.img_resize(img), axis=0),
             verbose=0,
         )
         return embedding
@@ -380,8 +380,8 @@ class detection:
         ]
         return text_embeddings
 
-    def text_explanation(self, input_image, k=1, normalize=True):
-        get_image_embedding = self.get_img_embedding(input_image)
+    def text_explanation(self, img, k=1, normalize=True):
+        get_image_embedding = self.get_img_embedding(img)
         get_text_embedding = self.get_text_embedding()
         # Normalize text and image embedding
         if normalize:
