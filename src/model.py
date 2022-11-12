@@ -14,6 +14,9 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models import resnet18
 import tensorflow as tf
 from tensorflow import keras
+import tensorflow_hub as hub
+import tensorflow_text as text
+import tensorflow_addons as tfa
 
 class detection:
     def __init__(self, path_model_od, path_model_cp, path_model_ve, path_model_te, path_text, size, patch_size, batchsize):
