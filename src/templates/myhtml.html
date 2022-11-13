@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sample Form</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+    
+    <style>
+        .frame {
+          width: 255px;
+          height: 265px;
+          padding: 5px;
+        }
+        img {
+          width: 100%;
+          height: 85%;
+        }
+      </style>
+</head>
+<body>
+    <div>
+        <h2>Samsung Explainability</h2>
+    </div>                         
+    <form action="/images" class="form-inline" method="post" enctype="multipart/form-data">
+        <div width ="60%">
+        <table class="table">
+        <tbody></tbody>
+        <tr>
+            <td align="center" width="33%">
+                <div class="frame">
+                    <label for="files" class="btn btn-sm btn-link">Click here to upload image</label>
+                    <img src="data:image/png;base64,{{input_img | safe}}" id="output" />
+                </div> 
+                <div>
+                    <input type="file" accept="image/*" name="selectFile" id="files" onchange="loadFile(event)" style="visibility:hidden;">
+                </div>
+                <input type="submit" class="btn btn-xs btn-primary">
+            </td>
+            <td align="center" width="33%">
+                
+                <div class="frame">
+                    <label for="hm_image">Heatmap Image</label>
+                    <img src="data:image/png;base64,{{heatmap_img | safe}}" id="hm_image"/>
+                </div>
+                <br>
+                
+            </td>
+            <td align="center" >
+                <table class="table table-condensed">
+                    <div class="form-group">
+                    <tr class="info">
+                        <th>Classification</th>
+                        <th>Annotations</th>
+                    </tr>
+                    {% for d in predDict %}
+                        {% for key in d %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ d[key] }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}    
+                </div>
+            </table>
+            </td>      
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <p class="bg-info">Project Description and team details go here..</p>
+    </form>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+</body>
+</html>
