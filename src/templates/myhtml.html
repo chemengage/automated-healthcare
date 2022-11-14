@@ -4,79 +4,100 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sample Form</title>
-
+        <title>Samsung Explainability</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    
-    <style>
-        .frame {
-          width: 255px;
-          height: 265px;
-          padding: 5px;
-        }
-        img {
-          width: 100%;
-          height: 85%;
-        }
-      </style>
+        <link href="{{ url_for('static', path='/css/mycss.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div>
         <h2>Samsung Explainability</h2>
-    </div>                         
-    <form action="/images" class="form-inline" method="post" enctype="multipart/form-data">
-        <div width ="60%">
+    </div> 
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'highlights_tab')">Project Highlights</button>
+        <button class="tablinks" onclick="openCity(event, 'team_tab')">Team Profile</button>
+        <button class="tablinks" onclick="openCity(event, 'inference_tab')" id="defaultOpen">Inference</button>
+      </div>                           
+    <div id="highlights_tab" class="tabcontent">
         <table class="table">
-        <tbody></tbody>
-        <tr>
-            <td align="center" width="33%">
-                <div class="frame">
-                    <label for="files" class="btn btn-sm btn-link">Click here to upload image</label>
-                    <img src="data:image/png;base64,{{input_img | safe}}" id="output" />
-                </div> 
-                <div>
-                    <input type="file" accept="image/*" name="selectFile" id="files" onchange="loadFile(event)" style="visibility:hidden;">
-                </div>
-                <input type="submit" class="btn btn-xs btn-primary">
-            </td>
-            <td align="center" width="33%">
-                
-                <div class="frame">
-                    <label for="hm_image">Heatmap Image</label>
-                    <img src="data:image/png;base64,{{heatmap_img | safe}}" id="hm_image"/>
-                </div>
-                <br>
-                
-            </td>
-            <td align="center" >
-                <table class="table table-condensed">
-                    <div class="form-group">
-                    <tr class="info">
-                        <th>Classification</th>
-                        <th>Annotations</th>
-                    </tr>
-                    {% for d in predDict %}
-                        {% for key in d %}
-                        <tr>
-                            <td>{{ key }}</td>
-                            <td>{{ d[key] }}</td>
-                        </tr>
-                        {% endfor %}
-                    {% endfor %}    
-                </div>
+            <tbody></tbody>
+            <tr>
+                <td align="center" width="33%">
+                    Description of the project
+                </td>
+                <td align="center" width="33%">
+                    <img src="{{ url_for('static', path='/images/ml_pipeline.png') }}" />
+                </td>
+            </tr>   
+            </tbody>
             </table>
-            </td>      
-        </tr>
-        </tbody>
-    </table>
     </div>
-    <p class="bg-info">Project Description and team details go here..</p>
-    </form>
-<script>
-    var loadFile = function(event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
-</script>
+    <div id="team_tab" class="tabcontent">
+        <table class="table">
+            <tbody></tbody>
+            <tr>
+                <td align="center" width="33%">
+                    
+                </td>
+                <td align="center" width="33%">
+                    
+                </td>
+                <td align="center" width="33%">
+                    
+                </td>
+            </tr>   
+            </tbody>
+            </table>
+    </div>
+    <div id="inference_tab" class="tabcontent">
+        <form action="/images" class="form-inline" method="post" enctype="multipart/form-data">
+            <table class="table">
+            <tbody></tbody>
+            <tr>
+                <td align="center" width="33%">
+                    <label for="files" class="btn btn-sm btn-link">Click here to select input image</label><label for="sub_but" class="btn btn-xs btn-primary">Upload</label><input id="sub_but" type="submit" style="visibility:hidden;">
+                    <div class="frame">     
+                        <img src="data:image/png;base64,{{input_img | safe}}" id="output" onerror="this.onerror=null; this.remove();"/>
+                    </div> 
+                    <div>
+                        <input type="file" accept="image/*" name="selectFile" id="files" style="visibility:hidden;"/>
+                    </div>       
+                </td>
+                <td align="center" width="33%">           
+                    <div class="frame">
+                        <label for="hm_image">Heatmap Image</label>
+                        <img src="data:image/png;base64,{{heatmap_img | safe}}" id="hm_image" onerror="this.onerror=null; this.remove();"/>
+                    </div>            
+                </td>
+                <td align="center" width="33%">
+                    <input type="text" name="regcoords" id="regcoords" />
+                    <table class="table table-condensed">
+                        <div class="form-group">
+                        <tr class="info">
+                            <th>Classification</th>
+                            <th>Annotation</th>
+                            <th>XCoords</th>
+                            <th>YCoords</th>
+                        </tr>
+                        {% for p in predDict %}
+                            {% set item_1 = predDict[loop.index-1] %}
+                            {% set item_2 = explainDict[loop.index-1] %}
+                            {% set item_3 = xcoords[loop.index-1] %}
+                            {% set item_4 = ycoords[loop.index-1] %}
+                            <tr>
+                                <td>{{ item_1 }}</td>
+                                <td>{{ item_2 }}</td>
+                                <td>{{ item_3 }}</td>
+                                <td>{{ item_4 }}</td>
+                            </tr>
+                            {% endfor %}
+                    </div>
+                </table>
+                </td>      
+            </tr>
+            </tbody>
+        </table>
+        </form>
+        </div>
+<script src="{{ url_for('static', path='/js/myjs.js') }}" type="text/javascript"></script>
 </body>
 </html>
