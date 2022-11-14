@@ -13,11 +13,11 @@ class Mitosisdetection:
         # paths to model files
         # these paths are for local testing
         # these will be adjusted accordingly for EC2 instance and/or docker image
-        path_model_od = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/models/CODAEL_OD_v1_weights.pth'
-        path_model_cp = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/models/patch_classifier_CODAEL_v0_weights.pth'
-        path_model_ve = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/models/vision_encoder'
-        path_model_te = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/models/text_encoder'
-        path_text = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/models/unique_texts.csv'
+        path_model_od = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/src/models/CODAEL_OD_v1_weights.pth'
+        path_model_cp = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/src/models/patch_classifier_CODAEL_v0_weights.pth'
+        path_model_ve = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/src/models/vision_encoder'
+        path_model_te = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/src/models/text_encoder'
+        path_text = '/Users/gsowell/Desktop/Research/Fourthbrain/Capstone/samsung-capstone/src/models/unique_texts.csv'
 
         self.d = detection(path_model_od, path_model_cp, path_model_ve, path_model_te, path_text, self.size, self.patch_size, self.batchsize)
 

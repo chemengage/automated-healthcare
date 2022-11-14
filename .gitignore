@@ -36,3 +36,6 @@ models
 
 #notebooks/img
 notebooks/img
+
+# SSH keys
+*.pem

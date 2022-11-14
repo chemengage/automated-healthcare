@@ -7,11 +7,11 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import Response, FileResponse, HTMLResponse
 from PIL import Image
 
-#from src.process import Mitosisdetection
-#import cv2
-#import io
-#import torch
-#from torch import autocast
+from process import Mitosisdetection
+import cv2
+import io
+import torch
+from torch import autocast
 
 
 # instantiate the app
@@ -21,7 +21,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates") 
 
 # instantiate the Mitosisdetection class
-#md = Mitosisdetection()
+md = Mitosisdetection()
 
 # create a route
 @app.get('/')
@@ -48,25 +48,25 @@ async def predict_image(request: Request, selectFile: UploadFile = File(...)):
         #process input image through pipeline
         # uploaded image to numpy array
         img = Image.open(selectFile.file).convert('RGB')
-        heatmap = Image.open(selectFile.file).convert('RGB')
+        #heatmap = Image.open(selectFile.file).convert('RGB')
         img = np.array(img)
 
         # make predictions on image
         # result dictionary
         # superimposed image = simg
-        #result, simg = md.predict(img)
+        result, simg = md.predict(img)
 
         # format superimposed image
-        #simg = cv2.cvtColor(simg, cv2.COLOR_RGB2BGR)
-        #res, simg = cv2.imencode(".png", simg)
+        simg = cv2.cvtColor(simg, cv2.COLOR_RGB2BGR)
+        res, simg = cv2.imencode(".png", simg)
         #simg = simg.tobytes()   #convert to byte object
         
         #get heatmap image
-        base64_hm_img = base64.b64encode(heatmap.tobytes()).decode("utf-8")
+        base64_hm_img = base64.b64encode(simg.tobytes()).decode("utf-8")
 
         predDict = [{"0":"text1"},{"1":"text2"},{"0":"text3"}]
     
-        return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_encoded_img, 'predDict': predDict })
+        return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_hm_img, 'predDict': predDict })
 
     # run the app
 if __name__ == "__main__":
