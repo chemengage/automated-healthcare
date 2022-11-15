@@ -328,7 +328,7 @@ class detection:
         x = x.view(x.size(0), -1)
         output = self.model_cp.fc(x)
         pred = torch.argmax(output).item()
-        #print(pred)
+        # print(pred)
 
         # get the gradient of the output
         output[:, pred].backward()
