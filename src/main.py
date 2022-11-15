@@ -8,22 +8,22 @@ from fastapi.responses import Response, FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 
-from PIL import Image
-
-from src.process import Mitosisdetection
-import cv2
-import io
-import torch
-from torch import autocast
+# from PIL import Image
+#
+# from src.process import Mitosisdetection
+# import cv2
+# import io
+# import torch
+# from torch import autocast
 
 
 # instantiate the app
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="src/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 #HTML Template Directory
-templates = Jinja2Templates(directory="src/templates") 
+templates = Jinja2Templates(directory="templates")
 
 # instantiate the Mitosisdetection class
 ##md = Mitosisdetection()
