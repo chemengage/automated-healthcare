@@ -405,6 +405,11 @@ class detection:
         return embedding
 
     def get_text_embedding(self):
+        # disable tensor float execution for text encoder if on GPU (weird bug)
+        gpus = tf.config.list_physical_devices(device_type = 'GPU')
+        if gpus:
+            tf.config.experimental.enable_tensor_float_32_execution(False)
+
         text_embeddings = [
             self.text_encoder(tf.convert_to_tensor([text.lower().replace('.', '')])) for text in self.unique_texts
         ]
