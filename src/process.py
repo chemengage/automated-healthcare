@@ -31,3 +31,15 @@ class Mitosisdetection:
         superimposed_img = self.d.heatmap(input_image, result)
 
         return result, superimposed_img
+
+    def process_result(self, result):
+        preds = len(result.get('predictions'))
+        mfs = len(result.get('predictions')) - sum(result.get('predictions'))
+        nonmfs = sum(result.get('predictions'))
+        percentmfs = round(mfs/preds*100, 1)
+
+        result_dict = {'total predictions': preds,
+                        'mitotic figures': mfs,
+                            'non-mitotic figures': nonmfs,
+                                'percent mitotic figures': percentmfs}
+        return result_dict
