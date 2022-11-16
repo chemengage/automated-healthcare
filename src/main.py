@@ -3,6 +3,7 @@ import base64
 import numpy as np
 from PIL import Image
 import cv2
+import tensorflow as tf
 
 from fastapi import FastAPI, UploadFile,File, Request
 from fastapi.templating import Jinja2Templates
@@ -11,10 +12,18 @@ from fastapi.staticfiles import StaticFiles
 
 from process import Mitosisdetection
 
+# helper function for GPU config for Keras
+def gpu_setup():
+    gpus = tf.config.list_physical_devices(device_type = 'GPU')
+    if gpus:
+        tf.config.experimental.set_memory_growth(gpus[0], True)
+
 # instantiate the app
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# call GPU setup helper
+gpu_setup()
 
 #HTML Template Directory
 templates = Jinja2Templates(directory="templates")
