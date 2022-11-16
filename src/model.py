@@ -3,7 +3,6 @@ from queue import Queue, Empty
 from tqdm import tqdm
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 import torch
