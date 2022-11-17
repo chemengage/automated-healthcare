@@ -56,7 +56,7 @@
                 <td align="center" width="33%">
                     <label for="files" class="btn btn-sm btn-link">Click here to select input image</label><label for="sub_but" class="btn btn-xs btn-primary">Upload</label><input id="sub_but" type="submit" style="visibility:hidden;">
                     <div class="frame">     
-                        <img src="data:image/png;base64,{{input_img | safe}}" id="output" onerror="this.onerror=null; this.remove();"/>
+                        <img src="data:image/png;base64,{{input_img | safe}}" id="output" class="cover" onerror="this.onerror=null; this.remove();"/>
                     </div> 
                     <div>
                         <input type="file" accept="image/*" name="selectFile" id="files" style="visibility:hidden;"/>
@@ -65,7 +65,7 @@
                 <td align="center" width="33%">           
                     <div class="frame">
                         <label for="hm_image">Heatmap Image</label>
-                        <img src="data:image/png;base64,{{heatmap_img | safe}}" id="hm_image" onerror="this.onerror=null; this.remove();"/>
+                        <img src="data:image/png;base64,{{heatmap_img | safe}}" id="hm_image" class="cover" onerror="this.onerror=null; this.remove();"/>
                     </div>            
                 </td>
                 <td align="center" width="33%">
