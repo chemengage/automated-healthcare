@@ -50,21 +50,22 @@ async def predict_image(request: Request, selectFile: UploadFile = File(...)):
     else:
         img_content = await selectFile.read()
         
-        #return back input image
-        base64_encoded_img = base64.b64encode(img_content).decode("utf-8")
-        
         #process input image through pipeline
         # uploaded image to numpy array
         img = Image.open(selectFile.file).convert('RGB')
         img = np.array(img)
+
+        # format input/uploaded image to be returned to UI
+        input_image = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        res, input_image = cv2.imencode(".jpg", input_image)
+        base64_encoded_img = base64.b64encode(input_image.tobytes()).decode("utf-8")
 
         # make predictions on image
         # result dictionary and superimposed image
         result, simg = md.predict(img)
         
         # format superimposed image
-        simg = cv2.cvtColor(simg, cv2.COLOR_RGB2BGR)
-        res, simg = cv2.imencode(".png", simg)
+        res, simg = cv2.imencode(".jpg", simg)
 
         #get heatmap image
         base64_hm_img = base64.b64encode(simg.tobytes()).decode("utf-8")
