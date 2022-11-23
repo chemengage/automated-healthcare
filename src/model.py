@@ -374,8 +374,9 @@ class detection:
                 heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
 
                 mask[y_start:y_start+250, x_start:x_start+250, :] = heatmap
-
-        superimposed_img = input_image + mask
+        # add alpha factor to mask for better blending
+        alpha = 0.5
+        superimposed_img = input_image + alpha*mask
         superimposed_img = np.uint8(255 * superimposed_img / np.max(superimposed_img))
         superimposed_img = cv2.cvtColor(superimposed_img, cv2.COLOR_BGR2RGB)
         return superimposed_img
