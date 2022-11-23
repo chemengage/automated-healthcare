@@ -64,16 +64,19 @@ async def predict_image(request: Request, selectFile: UploadFile = File(...)):
         # result dictionary and superimposed image
         result, simg = md.predict(img)
         
+        # summary results from results
+        result_dict = md.process_result(result)
+        
         # format superimposed image
         res, simg = cv2.imencode(".jpg", simg)
 
         #get heatmap image
         base64_hm_img = base64.b64encode(simg.tobytes()).decode("utf-8")
 
-        predictions = ["0","1","0"]
-        explanations = ["text1","text2","text3"]
-        xcoordinates = [{400},{10},{250}]
-        ycoordinates = [{400},{10},{250}]
+        predictions = result['predictions']
+        explanations = result['explanations']
+        xcoordinates = result['coordinates']['x']
+        ycoordinates = result['coordinates']['y']
         return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_hm_img, 'predDict': predictions,'explainDict': explanations, 'xcoords': xcoordinates, 'ycoords': ycoordinates})
 
     # run the app
