@@ -77,7 +77,7 @@ async def predict_image(request: Request, selectFile: UploadFile = File(...)):
         explanations = result['explanations']
         xcoordinates = result['coordinates']['x']
         ycoordinates = result['coordinates']['y']
-        return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_hm_img, 'predDict': predictions,'explainDict': explanations, 'xcoords': xcoordinates, 'ycoords': ycoordinates})
+        return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_hm_img, 'predDict': predictions,'explainDict': explanations, 'xcoords': xcoordinates, 'ycoords': ycoordinates, 'result_dict': result_dict})
 
     # run the app
 if __name__ == "__main__":

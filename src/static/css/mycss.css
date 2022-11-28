@@ -1,12 +1,14 @@
+
 .frame {
-    width: 512px;
-    height: 512px;
+    width: 700px;
+    height: 524px;
     padding: 0px;
   }
   img {
     width: 100%;
     height: 100%;
   }
+
   /* Style the tab */
   .tab {
   overflow: hidden;
@@ -48,3 +50,14 @@
     width: 512px;
     height: 512px;
   }
+
+  .scrollable {
+    height: 150px;
+    overflow-y: scroll;
+  }
+  th {
+    position: sticky;
+    z-index: 2;
+    top: 0;
+  }
+
