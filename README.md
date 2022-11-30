@@ -21,20 +21,57 @@ machine learning pipeline that seamlessly accepts a slide image as an input and 
 
 ## How to Use the Project Repo
 ### Folder Structure
-- The `assignments/` folder contains all weekly assignments related to the progression of this project.
-- The `data/` folder contains the image data that is saved locally. It is empty as it is good practice to exclude data from
+- `deliverables/` contains weekly deliverables related to the progression of this project.
+- `data/` folder (not visible) contains the image data that is saved locally. It is empty as it is good practice to exclude data from
 the repo using a .gitignore file.
-- The `models/` folder contains the fully saved trained models to be used in deployment.
-- The `notebooks/` folder contains all .ipynb files containing all data science work done throughout this project.
-- The `prework/` folder contains all code by the original authors that serves as a baseline for this core project.
-Bits and pieces of the code in this folder related to databases and data collection served as a stepping stone for our work.
-- The `references/` folder contains all articles and code samples from across the web in which we took inspiration from to use in our project.
-- The `reports/` folder contains any reports or visualizations that were used to aid in presenting the project.
-- The `src/` folder contains all source code and scripts to download and process the data, preprocess data into the appropriate features,
-code to train, test and validate models, and all appropriate code to create visualizations.
+- `notebooks/` contains jupyter notebooks for data science work and training our models
+- `prework/` contains the [original authors](https://github.com/DeepPathology/MITOS_WSI_CMC/) repo from their [paper](https://www.nature.com/articles/s41597-019-0290-4#Sec10) that this work is based off of
+- `src/` contains the source code to run our FastAPI web application
+### src/ Folder Structure
+- `data/` contains [extract-patches.ipynb](src/data/extract-patches.ipynb) to generate image patches and annotation bounding box info from WSIs for model training or running inference. It points to `prework/databases` and the WSI images on your local setup. Refer to [Setup.ipynb](prework/setup.ipynb) in `prework/` to download the WSI images from figshare (very large files)
+- `models/` contains the finetuned model weights and files
+    - PyTorch FasterRCNN object detection model (CODAEL_OD_v1_weights.pth)
+    - PyTorch Resnet18 cell patch classifier (patch_classifier_CODAEL_v0_weights.pth)
+    - Tensorflow dual-encoder model (vision_encoder, text_encoder, unique_texts.csv)
+- `static/` and `templates/` contain files for the web app
+- `main.py` is a FastAPI implementation of our application that launches a web UI where a user can upload a WSI image, run inference, and return a report with a heatmap, text explanations of mitotic detections, and summary statistics
+- `process.py` contains class Mitosisdetection and is called by `main.py`. It loads the models and provides two methods
+    - `def predict:` runs inference on the input image
+    - `def process_result:` generates dictionary of summary statistics
+- `model.py` contains class detection and is called by `process.py`. It provides all the methods for processing the input image, running inference, and generating heatmaps and text explanations
 ### Miscellaneous Files
 - This repo has a `.gitignore` file to remove any local work/data not needed for the repo.
 - This repo has a `requirements.txt` file that matches exactly what was needed to run all code in this repo successfully.
+
+## How to Run the FastAPI application
+### Launch FastAPI app locally w/o Docker
+1. Ensure packages in [requirements.txt](requirements.txt) are installed in a new conda or pip virtual environment running Python 3.8 and that the new environment is activated. For conda, you may run these commands in a terminal
+    - `conda create --name my-environment python=3.8 pip`
+    - `conda activate my-environment`
+    - `pip install -r requirements.txt`
+2. Open a terminal and cd into `src/`
+3. Run command `python main.py` or `python3 main.py`, app will take up to a minute to load models and launch
+4. Open a web browser and enter `localhost:8000/images' to access the web UI
+### Launch FastAPI app on AWS EC2 w/GPUs
+These are the instance settings we used.
+- Deep Learning AMI GPU PyTorch 1.12.1 (Amazon Linux 2)
+- Instance type: p3.2xlarge
+- Auto-assign public IP = Enable
+- Allow HTTP and HTTPS traffic: Source type = Anywhere
+- Added security group Custom TCP: Port range = 8000, Source type = Anywhere
+- 128 GB of gp3 storage
+
+Setting up instance and launching app
+1. Connect to the instance via terminal or VSCode
+2. Clone our repo with `git clone git@github.com:artemiorimando/samsung-capstone.git`
+3. Initialize conda and setup environment
+    1. `conda init --all`
+    2. `conda create --name my-environment python=3.8 pip`
+    3. `conda activate my-environment`
+    4. `pip install -r requirements.txt`
+4. cd into `src/` and run command `python main.py` or `python3 main.py`, app will take up to a minute to load models and launch
+5. Find the public IPv4 address of the instance
+6. Open a web browser and enter `"IPv4 address of instance":8000/images` to access the web UI
 
 ## Data Lineage
 The following chart shows how we envisioned data to propagate in our machine learning pipeline.
