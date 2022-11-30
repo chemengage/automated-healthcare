@@ -39,11 +39,11 @@ code to train, test and validate models, and all appropriate code to create visu
 ## Data Lineage
 The following chart shows how we envisioned data to propagate in our machine learning pipeline.
 
-![Data Lineage for Capstone Project](data_lineage.png)
+![Data Lineage for Capstone Project](assets/images/data_lineage.png)
 
 ## ML Pipeline Diagram
 
-![ML Pipeline Diagram](ml_pipeline.png)
+![ML Pipeline Diagram](assets/images/ml_pipeline.png)
 
 ## Methodology
 ### 1. Mitotic Object Detection on Whole Slide Images
