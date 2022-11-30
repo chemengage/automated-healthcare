@@ -1,7 +1,7 @@
 
 .frame {
-    width: 700px;
-    height: 524px;
+    width: 512px;
+    height: 512px;
     padding: 0px;
   }
   img {
@@ -52,7 +52,7 @@
   }
 
   .scrollable {
-    height: 150px;
+    height: 400px;
     overflow-y: scroll;
   }
   th {

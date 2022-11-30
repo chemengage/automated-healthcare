@@ -75,12 +75,17 @@ async def predict_image(request: Request, selectFile: UploadFile = File(...)):
 
         predictions = result['predictions']
         explanations = result['explanations']
-        xcoordinates = result['coordinates']['x']
-        ycoordinates = result['coordinates']['y']
-        return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_hm_img, 'predDict': predictions,'explainDict': explanations, 'xcoords': xcoordinates, 'ycoords': ycoordinates, 'result_dict': result_dict})
+       # xcoordinates = result['coordinates']['x']
+       # ycoordinates = result['coordinates']['y']
+       
+        total_pred = result_dict['total predictions']
+        m_fig = result_dict['mitotic figures']
+        nm_fig = result_dict['non-mitotic figures']
+        perc_m_fig = result_dict['percent mitotic figures']
+        return templates.TemplateResponse('myhtml.html', context={'request': request, 'input_img': base64_encoded_img, 'heatmap_img': base64_hm_img, 'predDict': predictions,'explainDict': explanations, 'm_fig':m_fig, 'total_pred':total_pred, 'nm_fig':nm_fig, 'perc_m_fig':perc_m_fig})
 
     # run the app
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
-#terminal command: uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+#terminal command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000

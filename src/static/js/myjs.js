@@ -68,3 +68,29 @@ for(var i=0; i<elmids.length; i++) {
     };
   }
 }
+
+// Show readme file contents in the Project Description
+$(function(){
+  // Load `README.md` and show
+  $("#included_content").load("./README.md", function(data) {
+      marked.setOptions({
+          gfm: true,
+          tables: true,
+          breaks: false,
+          pedantic: false,
+          sanitize: true,
+          smartLists: true,
+          smartypants: false,
+          langPrefix: '',
+          highlight: function(code, lang) {
+              return code;
+          }
+      });
+      var html_str = marked(data);
+      $("#display_content").html(html_str);
+
+      // Apply highlight.js again
+      hljs.initHighlighting.called = false;
+      hljs.initHighlighting();
+  }); 
+});
