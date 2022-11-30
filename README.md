@@ -106,23 +106,23 @@ A dual encoder neural network was built using two main components, a vision enco
 
 ![Technology Stack](assets/images/tech-stack.png)
 
-### - SQLite
+- ### SQLite
 The image and mitotic region data can be found in SQLite databases in `prework/databases`.
 
-### - Python
+- ### Python
 The Object Detection Model, Patch Classifier, and GradCAM components of the app are built using PyTorch. The exploratory work is done in Jupyter Notebooks which can be found in `notebooks/sjargs-object-detection-CODAEL-v1.ipynb` and `notebooks/sjargs-cell-patch-classifier-CODAEL-v0.ipynb`
 
 The Image-to-Text Dual Encoder Model components of the app are built using Tensorflow wrapper, Keras. The exploratory work is done in Jupyter Notebooks which can be found in `notebooks/sjargs-train-dual-encoder.ipynb`.
 
 FastAPI is used as the backbone for overall deployment. Deployment files can all be found in the `src/` folder. More specifically, the web application is called in `main.py` and all encompassing models are found in `models.py`. Initialization of the models can be found in `process.py`. 
 
-### - Docker
+- ### Docker
 The web application is fully containerized with Python 3.8 as the main Python environment. Components of the app can be found and ran in `Dockerfile`.
 
-### - AWS EC2
+- ### AWS EC2
 EC2 is chosen as the main cloud solution to running the containerized applcation. A dedicated IP address allows usage of
 
-### - Web Application
+- ### Web Application
 A dedicated endpoint of "/images" is where the entire web application resides and is fully functional. The UI accepts a whole slide image (.wsi file, examples extracted from SQLite) and displays outputs from Patch Classification, GradCAM Heatmaps and Dual Encoder explanations.
 
 ## Presentation Link
