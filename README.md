@@ -123,6 +123,9 @@ The web application is fully containerized with Python 3.8 as the main Python en
 EC2 is chosen as the main cloud solution to running the containerized applcation. A dedicated IP address allows usage of
 
 - ### Web Application
+
+![Example Web UI](assets/images/output-ss.png)
+
 A dedicated endpoint of "/images" is where the entire web application resides and is fully functional. The UI accepts a whole slide image (.wsi file, examples extracted from SQLite) and displays outputs from Patch Classification, GradCAM Heatmaps and Dual Encoder explanations.
 
 ## Presentation Link
