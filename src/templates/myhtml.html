@@ -13,7 +13,7 @@
         <h2>Samsung Explainability</h2>
     </div> 
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'highlights_tab')">Project Highlights</button>
+        <button class="tablinks" onclick="openCity(event, 'highlights_tab')">Product Highlights</button>
         <button class="tablinks" onclick="openCity(event, 'team_tab')">Team Profile</button>
         <button class="tablinks" onclick="openCity(event, 'inference_tab')" id="defaultOpen">Inference</button>
     </div>                           
@@ -21,37 +21,43 @@
         <table class="table">
             <tbody>
                 <tr class="info">
-                    <th>Project Methodology</th>
+                    <th>Product Methodology</th>
                     <th>ML Pipeline Diagram</th>
                 </tr>
                 <tr>
                     <td align="left" width="50%" >
                         
                         <ul>
-                            <li><h6>Mitotic Object Detection on Whole Slide Images</li></h6>
-                            <li><h6>Cell Patch Classifier</h6></li>
-                            <small>Convolution neural network model serves as the base model to perform predictions.
+                            <li><h5>Mitotic Object Detection on Whole Slide Images</li></h5>
+                            <ul>
+                                <li>Systematic segmentation of input image</li>
+                                <li>Finetuned Faster RCNN (Resnet50 backbone) object detection model</li>
+                                <li>Generates image patch candidates for classifier</li>
+                            </ul>
+                            <li><h5>Cell Patch Classifier</h5></li>
+                            Convolution neural network model serves as the base model to perform predictions.
                                 <br>
-                                Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)
-                            </small>
-                            <li><h6>Visual Explainability using GradCAM</h6></li>
-                            <small>GradCAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
+                                <ul>
+                                    <li>Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)</li>
+                                    <li>Finetuned Resnet18 CNN classifies image patch candidates from stage 1</li>
+                                    <li>Last convolutional layer supports GradCAM activation maps</li>
+                                </ul>
+                            <li><h5>Visual Explainability using GradCAM</h5></li>
+                            GradCAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
                                 <br>
                                 <ul>
                                     <li>Goal: Mitotic Detected Image (Input) -> Mitotic Image Heatmap (Output)</li>
                                     <li>Convolutional neural network model is used as main classifier for prediction</li>
                                     <li>CAM layer is included in CNN architecture before the output layer to help visualize image embedding space that explains predictions</li>
                                 </ul>   
-                            </small>
-                            <li><h6>Textual Explainability using Dual Encoder</h6></li> 
-                            <small>A dual encoder neural network was built using two main components, a vision encoder and a text encoder.
+                            <li><h5>Textual Explainability using Dual Encoder</h5></li> 
+                            A dual encoder neural network was built using two main components, a vision encoder and a text encoder.
                                 <br>
                                 <ul>
                                 <li>Goal: Mitotic Detected Image (Input) -> Natural Language Explanation (Output)</li>
                                 <li>Image embeddings are created through the vision encoder via a pretrained Xception (ImageNet) neural network architecture.</li>
                                 <li>Text embeddings are created through the text encoder via a pretrained BERT (English Uncased) neural network architecture.</li>
                                 <li>Dual encoder learns image-to-text embeddings by minimizing the average loss over the image and text loss functions.</li>
-                            </small>
                     </td>
                     <td align="left" >
                         <img src="{{ url_for('static', path='/images/ml_pipeline.png') }}" />
@@ -61,23 +67,38 @@
         </table>
     </div>
     <div id="team_tab" class="tabcontent">
-        <table align="center" style="width:80%">
+        <table align="center">
             <tbody>
-            <tr>
-                <td align="center" width="33%">
-                    <img src="{{ url_for('static', path='/images/profile1.jpeg') }}" alt="..." style="border-radius:50%"/> 
+            <tr align="center">
+                <td  width="33%">
+                    <img src="{{ url_for('static', path='/images/shelly-1.jpeg') }}" alt="..." style="border-radius:50%; width:400px;
+                    height:400px;"/> 
+                </td>
+                <td width="33%">  
+                    <img src="{{ url_for('static', path='/images/artemio-1.jpeg') }}" alt="..." style="border-radius:50%; width:400px;
+                    height:400px;"/>  
+                </td>
+                <td  width="33%">  
+                    <img src="{{ url_for('static', path='/images/gage-1.jpeg') }}" alt="..." style="border-radius:50%; width:400px;
+                    height:400px;"/>  
+                </td>
+            
+            </tr>
+            <tr align="center" style="vertical-align:top; padding:10px;">
+                <td style="padding: 15px;">
                     <h4>Shelly Jain</h4>  
-                    <p>VP, JPMorgan Chase</p>    
+                    <p>VP, JPMorgan Chase</p>
+                    <p>Shelly is an engineer at heart and a business partner by profession. She spent first 5 years of her career in software development and then went on to study business. Post her MBA from IIM Calcutta in 2011, she has been partnering with leaderships across global organizations, setting up data driven high performance teams, bringing data closer to strategic decisions. She has spent last couple of years learning MLE, Cloud and Product Management. When not at work, you can find her learning something new, cooking and spending time with her family.</p>    
                 </td>
-                <td align="center" width="33%">  
-                    <img src="{{ url_for('static', path='/images/profile1.jpeg') }}" alt="..." style="border-radius:50%"/>  
-                    <h4>Artemio Rimando</h4>    
-                    <p>Data Scientist, ArcSpan</p>    
+                <td style="padding: 15px;">
+                    <h4>Artemio Rimando (He/Him/His)</h4>    
+                    <p>Data Scientist, ArcSpan</p>
+                    <p>Artemio has 7 years of experience in data science having explored different areas of focus such as commercial lending, mobile gaming, digital advertising and mental health. He has participated in the FourthBrain curriculum to build his skills in model deployment. When not working, he loves to spend his time travelling, writing blog posts, and playing video games.</p>    
                 </td>
-                <td align="center" width="33%">  
-                    <img src="{{ url_for('static', path='/images/profile1.jpeg') }}" alt="..." style="border-radius:50%"/>  
+                <td style="padding: 15px;">
                     <h4>Gage Sowell</h4>  
-                    <p>Production Engineer, Flir</p>      
+                    <p>Production Engineer, Flir</p> 
+                    <p>Gage is an aspiring machine learning engineer with a background in chemical engineering. He graduated with his M.S. from CU Boulder where he studied the synthesis of catalysts via atomic layer deposition for methane decomposition. In his 5 years of engineering experience he has led technical projects in the semiconductor and laser manufacturing industries. He will leverage his domain experience and technical skills to contribute to thoughtful ML solutions from data to deployment as this project demonstrates. Outside of work, you may literally find him outside backcountry skiing, mountain biking, or climbing under the big sky in his home state of Montana.</p>     
                 </td>
             </tr>   
             </tbody>
@@ -112,7 +133,7 @@
                         <table class="table table-condensed" >
                         <tbody>
                             <tr class="info">
-                                <th width="40%">Predicted Image Class</th>
+                                <th width="40%">Predicted Image Class (0 = mitotic detection, 1 = non-mitotic)</th>
                                 <th>Predicted Annotation</th>
                             </tr>
                             {% for p in predDict %}
