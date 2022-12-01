@@ -24,11 +24,10 @@ machine learning pipeline that seamlessly accepts a slide image as an input and 
 - `deliverables/` contains weekly deliverables related to the progression of this project.
 - `data/` folder (not visible) contains the image data that is saved locally. It is empty as it is good practice to exclude data from
 the repo using a .gitignore file.
-- `notebooks/` contains jupyter notebooks for data science work and training our models
-- `prework/` contains the [original authors](https://github.com/DeepPathology/MITOS_WSI_CMC/) repo from their [paper](https://www.nature.com/articles/s41597-019-0290-4#Sec10) that this work is based off of
+- `notebooks/` contains jupyter notebooks for data science work and training our models. Importantly, it contains [extract-patches.ipynb](notebooks/sjargs-extract-patches.ipynb) to generate image patches and annotation bounding box info from WSIs for model training or running inference. It points to `prework/databases` and the WSI images on your local setup. Refer to [Setup.ipynb](prework/Setup.ipynb) in `prework/` to download the WSI images from figshare (very large files)
+- `prework/` contains the [original authors](https://github.com/DeepPathology/MITOS_WSI_CMC/) repo from their [paper](https://www.nature.com/articles/s41597-020-00756-z) that this work is based off of
 - `src/` contains the source code to run our FastAPI web application
 ### src/ Folder Structure
-- `data/` contains [extract-patches.ipynb](src/data/extract-patches.ipynb) to generate image patches and annotation bounding box info from WSIs for model training or running inference. It points to `prework/databases` and the WSI images on your local setup. Refer to [Setup.ipynb](prework/setup.ipynb) in `prework/` to download the WSI images from figshare (very large files)
 - `models/` contains the finetuned model weights and files
     - PyTorch FasterRCNN object detection model (CODAEL_OD_v1_weights.pth)
     - PyTorch Resnet18 cell patch classifier (patch_classifier_CODAEL_v0_weights.pth)
@@ -83,19 +82,22 @@ The following chart shows how we envisioned data to propagate in our machine lea
 ![ML Pipeline Diagram](assets/images/ml_pipeline.png)
 
 ## Methodology
-### 1. Mitotic Object Detection on Whole Slide Images
+### A. Two-stage object detection and classification model
+1. Mitotic Object Detection on Whole Slide Images
+    1. Systematic segmentation of input image
+    2. Finetuned Faster RCNN (Resnet50 backbone) object detection model
+    3. Generates image patch candidates for classifier
+2. Cell Patch Classifier
+    1. Finetuned Resnet18 CNN classifies image patch candidates from stage 1
+    2. Last convolutional layer supports GradCAM activation maps
 
-### 2. Cell Patch Classifier
-Convolution neural network model serves as the base model to perform predictions.
-- Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)
-
-### 3. Visual Explainability using GradCAM
+### B. Visual Explainability using GradCAM
 GradCAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
 - Goal: Mitotic Detected Image (Input) -> Mitotic Image Heatmap (Output)
 - Convolutional neural network model is used as main classifier for prediction
 - CAM layer is included in CNN architecture before the output layer to help visualize image embedding space that explains predictions
 
-### 4. Textual Explainability using Dual Encoder
+### C. Textual Explainability using Dual Encoder
 A dual encoder neural network was built using two main components, a vision encoder and a text encoder. 
 - Goal: Mitotic Detected Image (Input) -> Natural Language Explanation (Output) 
 - Image embeddings are created through the vision encoder via a pretrained Xception (ImageNet) neural network architecture.
@@ -135,7 +137,7 @@ A dedicated endpoint of "/images" is where the entire web application resides an
 ## Contributors
 - Shelly Jain, *VP, JPMorgan Chase*
 - Artemio Rimando, *Data Scientist, ArcSpan*
-- Gage Sowell, *Production Engineer, Flir*
+- Gage Sowell, *Production Engineer, Teledyne-FLIR*
 
 ## Thank You
 - FourthBrain
