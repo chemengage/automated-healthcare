@@ -10,7 +10,7 @@
     </head>
 <body>
     <div>
-        <h2>Samsung Explainability</h2>
+        <h2>Automated Explainability in Healthcare</h2>
     </div> 
     <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'highlights_tab')">Product Highlights</button>
@@ -111,7 +111,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <label for="files" class="btn btn-sm btn-link">Click here to select input image</label><label for="sub_but" class="btn btn-xs btn-primary">Upload</label><input id="sub_but" type="submit" style="visibility:hidden;">
+                            <label for="files" class="btn btn-primary btn-link">Click here to select input image</label><label for="sub_but" class="btn btn-sm btn-primary">Upload</label><input id="sub_but" type="submit" style="visibility:hidden;">
                             <input type="file" accept="image/*" name="selectFile" id="files" style="visibility:hidden;"/>
                         </td>
                         <td>  
@@ -131,25 +131,25 @@
                 </tbody>
             </table>
                     <div class="scrollable">
-                        <table class="table table-condensed" >
+                        <table class="table table-condensed">
                         <tbody>
                             <tr class="info">
-                                <th width="40%">Predicted Image Class (0 = mitotic detection, 1 = non-mitotic)</th>
+                                <th width="40%">Predicted Image Class (0 = mitotic , 1 = non-mitotic)</th>
                                 <th>Predicted Annotation</th>
                             </tr>
                             {% for p in predDict %}
                                 {% set item_1 = predDict[loop.index-1] %}
                                 {% set item_2 = explainDict[loop.index-1] %}
                             <tr>
-                                <td><small>{{ item_1 }}</small></td>
-                                <td><small>{{ item_2 }}</small></td>
+                                <td>{{ item_1 }}</td>
+                                <td>{{ item_2 }}</td>
                             </tr>
                                 {% endfor %}
                         </tbody>
                     </table>
                     </div>
             <br></br>
-                <table class="table">
+            <table class="table" align="center">
                 <tbody>
                     <tr class="info">
                         <th>Total Predictions</th>
@@ -158,13 +158,13 @@
                         <th>Mitotic %</th>
                     </tr>
                     <tr>
-                        <td><small>{{ total_pred }}</small></td>
-                        <td><small>{{ m_fig }}</small></td>
-                        <td><small>{{ nm_fig }}</small></td>
-                        <td><small>{{ perc_m_fig }}</small></td>
+                        <td>{{ total_pred }}</td>
+                        <td>{{ m_fig }}</td>
+                        <td>{{ nm_fig }}</td>
+                        <td>{{ perc_m_fig }}</td>
                     </tr>
                 </tbody>
-                </table>
+            </table>
         </form>
     </div>
 <script src="{{ url_for('static', path='/js/myjs.js') }}" type="text/javascript"></script>
