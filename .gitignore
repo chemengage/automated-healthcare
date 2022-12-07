@@ -30,10 +30,6 @@ deliverables/week-6-ML-baseline/lib/
 deliverables/week-7-initial-github/Data_CMC*
 deliverables/week-7-initial-github/models
 
-# model files
-*.pth
-models
-
 #notebooks/img
 notebooks/img
 
