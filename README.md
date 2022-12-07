@@ -122,7 +122,7 @@ FastAPI is used as the backbone for overall deployment. Deployment files can all
 The web application is fully containerized with Python 3.8 as the main Python environment. Components of the app can be found and ran in `Dockerfile`.
 
 - ### AWS EC2
-EC2 is chosen as the main cloud solution to running the containerized applcation. A dedicated IP address allows usage of
+EC2 is chosen as the main cloud solution to running the containerized applcation. A dedicated IP address allows usage of the AI tool.
 
 - ### Web Application
 
@@ -132,7 +132,7 @@ A dedicated endpoint of "/images" is where the entire web application resides an
 
 ## Presentation Link
 
-[Demo-Day Final Presentation](https://docs.google.com/presentation/d/1qVjWvsBBks1P_PwFxf3sq1w35kqOuX_a/edit?usp=sharing&ouid=105719478312012717747&rtpof=true&sd=true)
+[Demo-Day Final Presentation](https://docs.google.com/presentation/d/1kK6vyUzftn-2eVNxxXSLOdoNQIx5beZyUBlvg2AGdY0/edit?usp=share_link)
 
 ## Contributors
 - Shelly Jain, *VP, JPMorgan Chase*
