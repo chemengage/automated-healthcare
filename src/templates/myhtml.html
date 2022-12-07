@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"">
+        <title>Samsung Explainability</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+        <link href="{{ url_for('static', path='/css/mycss.css') }}" rel="stylesheet" type="text/css">
+    </head>
+<body>
+    <div>
+        <h2>Automated Explainability in Healthcare</h2>
+    </div> 
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'highlights_tab')">Product Highlights</button>
+        <button class="tablinks" onclick="openCity(event, 'team_tab')">Team Profile</button>
+        <button class="tablinks" onclick="openCity(event, 'inference_tab')" id="defaultOpen">Inference</button>
+    </div>                           
+    <div id="highlights_tab" class="tabcontent">
+        <table class="table">
+            <tbody>
+                <tr class="info">
+                    <th>Product Methodology</th>
+                    <th>ML Pipeline Diagram</th>
+                </tr>
+                <tr>
+                    <td align="left" width="50%" >
+                        
+                        <ul>
+                            <li><h5>Mitotic Object Detection on Whole Slide Images</li></h5>
+                            <ul>
+                                <li>Systematic segmentation of input image</li>
+                                <li>Finetuned Faster RCNN (Resnet50 backbone) object detection model</li>
+                                <li>Generates image patch candidates for classifier</li>
+                            </ul>
+                            <li><h5>Cell Patch Classifier</h5></li>
+                            Convolution neural network model serves as the base model to perform predictions.
+                                <br>
+                                <ul>
+                                    <li>Goal: Sampled Whole Slide Image (Input) -> Binary Classification: Mitotic Prediction (Output)</li>
+                                    <li>Finetuned Resnet18 CNN classifies image patch candidates from stage 1</li>
+                                    <li>Last convolutional layer supports GradCAM activation maps</li>
+                                </ul>
+                            <li><h5>Visual Explainability using GradCAM</h5></li>
+                            GradCAM is used to highlight specific regions of the image that help explain and contribute to the prediction of mitotic or non-mitotic.
+                                <br>
+                                <ul>
+                                    <li>Goal: Mitotic Detected Image (Input) -> Mitotic Image Heatmap (Output)</li>
+                                    <li>Convolutional neural network model is used as main classifier for prediction</li>
+                                    <li>CAM layer is included in CNN architecture before the output layer to help visualize image embedding space that explains predictions</li>
+                                </ul>   
+                            <li><h5>Textual Explainability using Dual Encoder</h5></li> 
+                            A dual encoder neural network was built using two main components, a vision encoder and a text encoder.
+                                <br>
+                                <ul>
+                                <li>Goal: Mitotic Detected Image (Input) -> Natural Language Explanation (Output)</li>
+                                <li>Image embeddings are created through the vision encoder via a pretrained Xception (ImageNet) neural network architecture.</li>
+                                <li>Text embeddings are created through the text encoder via a pretrained BERT (English Uncased) neural network architecture.</li>
+                                <li>Dual encoder learns image-to-text embeddings by minimizing the average loss over the image and text loss functions.</li>
+                    </td>
+                    <td align="left" >
+                        <img src="{{ url_for('static', path='/images/ml_pipeline.png') }}" />
+                    </td>
+                </tr>   
+            </tbody>
+        </table>
+    </div>
+    <div id="team_tab" class="tabcontent">
+        <table align="center">
+            <tbody>
+            <tr align="center">
+                <td  width="33%">
+                    <img src="{{ url_for('static', path='/images/shelly-1.jpeg') }}" alt="..." style="border-radius:50%; width:400px;
+                    height:400px;"/> 
+                </td>
+                <td width="33%">  
+                    <img src="{{ url_for('static', path='/images/artemio-1.jpeg') }}" alt="..." style="border-radius:50%; width:400px;
+                    height:400px;"/>  
+                </td>
+                <td  width="33%">  
+                    <img src="{{ url_for('static', path='/images/gage-1.jpeg') }}" alt="..." style="border-radius:50%; width:400px;
+                    height:400px;"/>  
+                </td>
+            
+            </tr>
+            <tr align="center" style="vertical-align:top; padding:10px;">
+                <td style="padding: 15px;">
+                    <h4>Shelly Jain</h4>  
+                    <p>VP, JPMorgan Chase</p>
+                    <p>Shelly is an engineer at heart and a business partner by profession. She spent first 5 years of her career in software development and then went on to study business. Post her MBA from IIM Calcutta in 2011, she has been partnering with leaderships across global organizations, setting up data driven high performance teams, bringing data closer to strategic decisions. She has spent last couple of years learning MLE, Cloud and Product Management. When not at work, you can find her learning something new, cooking and spending time with her family.</p>    
+                </td>
+                <td style="padding: 15px;">
+                    <h4>Artemio Rimando (He/Him/His)</h4>    
+                    <p>Data Scientist, ArcSpan</p>
+                    <p>Artemio has 7 years of experience in data science having explored different areas of focus such as commercial lending, mobile gaming, digital advertising and mental health. He has participated in the FourthBrain curriculum to build his skills in model deployment. When not working, he loves to spend his time travelling, writing blog posts, and playing video games.</p>    
+                </td>
+                <td style="padding: 15px;">
+                    <h4>Gage Sowell</h4>  
+                    <p>Production Engineer, Teledyne-Flir</
+                        p>    
+                        <p>Gage is an aspiring machine learning engineer with a background in chemical engineering. He graduated with his M.S. from CU Boulder where he studied the synthesis of catalysts via atomic layer deposition for methane decomposition. In his 5 years of engineering experience he has led technical projects in the semiconductor and laser manufacturing industries. He will leverage his domain experience and technical skills to contribute to thoughtful ML solutions from data to deployment as this project demonstrates. Outside of work, you may literally find him outside backcountry skiing, mountain biking, or climbing under the big sky in his home state of Montana.</p>       
+                </td>
+            </tr>   
+            </tbody>
+        </table>
+    </div>
+    <div id="inference_tab" class="tabcontent">
+        <form action="/images" class="form-inline" method="post" enctype="multipart/form-data">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="files" class="btn btn-primary btn-link">Click here to select input image</label><label for="sub_but" class="btn btn-sm btn-primary">Upload</label><input id="sub_but" type="submit" style="visibility:hidden;">
+                            <input type="file" accept="image/*" name="selectFile" id="files" style="visibility:hidden;"/>
+                        </td>
+                        <td>  
+                            <label for="hm_image">Heatmap Image</label>         
+                        </td> 
+                    </tr>  
+                    <tr>
+                        <td>
+                            <img src="data:image/png;base64,{{input_img | safe}}" id="output" class="cover" onerror="this.onerror=null; this.remove();"/>
+                        </td>
+                        <td>
+                            <div class="frame">
+                            <img src="data:image/png;base64,{{heatmap_img | safe}}" id="hm_image" class="cover" onerror="this.onerror=null; this.remove();"/>
+                        </div> 
+                    </td> 
+                    </tr>
+                </tbody>
+            </table>
+                    <div class="scrollable">
+                        <table class="table table-condensed">
+                        <tbody>
+                            <tr class="info">
+                                <th width="40%">Predicted Image Class (0 = mitotic , 1 = non-mitotic)</th>
+                                <th>Predicted Annotation</th>
+                            </tr>
+                            {% for p in predDict %}
+                                {% set item_1 = predDict[loop.index-1] %}
+                                {% set item_2 = explainDict[loop.index-1] %}
+                            <tr>
+                                <td>{{ item_1 }}</td>
+                                <td>{{ item_2 }}</td>
+                            </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+            <br></br>
+            <table class="table" align="center">
+                <tbody>
+                    <tr class="info">
+                        <th>Total Predictions</th>
+                        <th>Mitotic</th>
+                        <th>Non-Mitotic</th>
+                        <th>Mitotic %</th>
+                    </tr>
+                    <tr>
+                        <td>{{ total_pred }}</td>
+                        <td>{{ m_fig }}</td>
+                        <td>{{ nm_fig }}</td>
+                        <td>{{ perc_m_fig }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+<script src="{{ url_for('static', path='/js/myjs.js') }}" type="text/javascript"></script>
+</body>
+</html>
