@@ -7,3 +7,5 @@ scikit-learn
 tqdm
 jupyter
 requests
+openslide-python==1.2.0
+sliderunner==2.0
