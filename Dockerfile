@@ -1,10 +1,11 @@
-FROM --platform=linux/x86_64 python:3.8
+FROM --platform=linux/amd64 python:3.8
 
 RUN apt-get -y update  && apt-get install -y \
     python3-dev \
     apt-utils \
     python-dev \
     build-essential \
+    python3-opencv \
 && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir -U pip
