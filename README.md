@@ -52,7 +52,7 @@ the repo using a .gitignore file.
     - `pip install -r requirements.txt`
 2. Open a terminal and cd into `src/`
 3. Run command `python main.py` or `python3 main.py`, app will take up to a minute to load models and launch
-4. Open a web browser and enter `localhost:8000/images' to access the web UI
+4. Open a web browser and enter `localhost:8000/images` to access the web UI
 ### Launch FastAPI app on AWS EC2 w/GPUs
 These are the instance settings we used.
 - Deep Learning AMI GPU PyTorch 1.12.1 (Amazon Linux 2)
@@ -73,6 +73,16 @@ Setting up instance and launching app
 4. cd into `src/` and run command `python main.py` or `python3 main.py`, app will take up to a minute to load models and launch
 5. Find the public IPv4 address of the instance
 6. Open a web browser and enter `"IPv4 address of instance":8000/images` to access the web UI
+
+### Launch containerized FastAPI app with Docker on EC2 or locally
+1. Ensure Docker is installed. If not, download [here](https://www.docker.com/)
+2. Ensure you are in the root folder of the repo
+3. Build Docker image from Dockerfile `docker build -t "image name" .`
+4. Will take awhile. Image will be ~5 GB
+5. Build and run Docker container
+    1. If your setup has GPUs run command `docker run --gpus all --rm --name contain_this -p 8000:8000 "image name"`
+    2. To run on CPU run command `docker run --rm --name contain_this -p 8000:8000 "image name"`
+6. Open a web browser and enter `"IPv4 address of instance":8000/images` if on EC2 or `localhost:8000/images`
 
 ## Data Lineage
 The following chart shows how we envisioned data to propagate in our machine learning pipeline.
